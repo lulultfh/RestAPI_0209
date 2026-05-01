@@ -23,6 +23,15 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  late bool _obsecureText;
+  bool _isFocused = false;
+
+  @override
+  void initState(){
+    super.initState();
+    _obsecureText = widget.isPassword;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
