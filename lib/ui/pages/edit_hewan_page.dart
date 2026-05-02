@@ -21,6 +21,7 @@ class EditHewanPage extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Data hewan berhasil diupdate')),
             );
+            Navigator.pop(context);
           } else if (state is HewanError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Gagal: ${state.message}')),
