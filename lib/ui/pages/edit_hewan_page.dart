@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:restapi_flutter/data/models/hewan_models.dart';
 
 class EditHewanPage extends StatelessWidget {
-  const EditHewanPage({super.key});
+  final HewanModel hewan;
+
+  const EditHewanPage({super.key, required this.hewan});
 
   @override
   Widget build(BuildContext context) {
