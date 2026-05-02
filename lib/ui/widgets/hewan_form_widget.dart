@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:restapi_flutter/data/models/hewan_models.dart';
 
@@ -79,7 +81,9 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
       if (statusInput != 'tersedia' && statusInput != 'terjual') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Status hanya boleh diisi "tersedia" atau "terjual" ya!'),
+            content: Text(
+              'Status hanya boleh diisi "tersedia" atau "terjual" ya!',
+            ),
             backgroundColor: Colors.redAccent,
           ),
         );
@@ -98,81 +102,111 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildGlassTextField(
-            controller: _namaController,
-            hint: 'Nama Hewan',
-            icon: Icons.pets,
-            validator: (value) =>
-                value!.isEmpty ? 'Nama tidak boleh kosong' : null,
-          ),
-          const SizedBox(height: 20),
-          _buildGlassTextField(
-            controller: _jenisController,
-            hint: 'Jenis Hewan',
-            icon: Icons.category,
-            validator: (value) =>
-                value!.isEmpty ? 'Jenis tidak boleh kosong' : null,
-          ),
-          const SizedBox(height: 20),
-          _buildGlassTextField(
-            controller: _tglLahirController,
-            hint: 'Tanggal Lahir Hewan',
-            icon: Icons.calendar_today,
-            readOnly: true,
-            onTap: () => _selectDate(context),
-            validator: (value) =>
-                value!.isEmpty ? 'Tanggal Lahir tidak boleh kosong' : null,
-          ),
-          const SizedBox(height: 20),
-          _buildGlassTextField(
-            controller: _hargaController,
-            hint: 'Harga Hewan',
-            icon: Icons.monetization_on,
-            keyboardType: TextInputType.number,
-            validator: (value) =>
-                value!.isEmpty ? 'Harga tidak boleh kosong' : null,
-          ),
-          const SizedBox(height: 20),
-          _buildGlassTextField(
-            controller: _statusController,
-            hint: 'Status Hewan (tersedia/terjual)',
-            icon: Icons.info_outline,
-            // keyboardType: TextInputType.number,
-            validator: (value) =>
-                value!.isEmpty ? 'Status tidak boleh kosong' : null,
-          ),
-          const SizedBox(height: 32),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: Colors.white.withOpacity(0.9),
-              foregroundColor: const Color(0xff1a237e),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+            child: Container(
+              padding: const EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1.5,
+                ),
               ),
-              elevation: 0,
-            ),
-            onPressed: widget.isLoading ? null : _submitForm,
-            child: widget.isLoading
-                ? const SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: CircularProgressIndicator(strokeWidth: 3),
-                  )
-                : Text(
-                    widget.initialData == null ? 'Simpan Data' : 'Update Data',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildGlassTextField(
+                      controller: _namaController,
+                      hint: 'Nama Hewan',
+                      icon: Icons.pets,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Nama tidak boleh kosong' : null,
                     ),
-                  ),
+                    const SizedBox(height: 20),
+                    _buildGlassTextField(
+                      controller: _jenisController,
+                      hint: 'Jenis Hewan',
+                      icon: Icons.category,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Jenis tidak boleh kosong' : null,
+                    ),
+                    const SizedBox(height: 20),
+                    _buildGlassTextField(
+                      controller: _tglLahirController,
+                      hint: 'Tanggal Lahir Hewan',
+                      icon: Icons.calendar_today,
+                      readOnly: true,
+                      onTap: () => _selectDate(context),
+                      validator: (value) => value!.isEmpty
+                          ? 'Tanggal Lahir tidak boleh kosong'
+                          : null,
+                    ),
+                    const SizedBox(height: 20),
+                    _buildGlassTextField(
+                      controller: _hargaController,
+                      hint: 'Harga Hewan',
+                      icon: Icons.monetization_on,
+                      keyboardType: TextInputType.number,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Harga tidak boleh kosong' : null,
+                    ),
+                    const SizedBox(height: 20),
+                    _buildGlassTextField(
+                      controller: _statusController,
+                      hint: 'Status Hewan (tersedia/terjual)',
+                      icon: Icons.info_outline,
+                      // keyboardType: TextInputType.number,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Status tidak boleh kosong' : null,
+                    ),
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          backgroundColor: Colors.white.withOpacity(0.9),
+                          foregroundColor: const Color(0xff1a237e),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: widget.isLoading ? null : _submitForm,
+                        child: widget.isLoading
+                            ? const SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3,
+                                ),
+                              )
+                            : Text(
+                                widget.initialData == null
+                                    ? 'Simpan Data'
+                                    : 'Update Data',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
