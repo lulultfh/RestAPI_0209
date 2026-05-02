@@ -1,39 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restapi_flutter/data/repositories/auth_repository.dart';
+import 'package:restapi_flutter/logic/bloc/auth/auth_bloc.dart';
+import 'package:restapi_flutter/logic/bloc/auth/auth_event.dart';
+import 'package:restapi_flutter/logic/bloc/auth/auth_state.dart';
+import 'package:restapi_flutter/logic/debug/bloc_observer.dart';
+import 'package:restapi_flutter/ui/pages/dashboard_page.dart';
+import 'package:restapi_flutter/ui/pages/login_page.dart';
 
 void main() {
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+    return BlocProvider(
+      create: (_) => AuthBloc(repository: AuthRepository())
+        ..add(AppStarted()),
+      child: MaterialApp(
+        title: 'Ternak App',
+        debugShowCheckedModeBanner: false,
+        // BlocBuilder langsung ditaruh di properti home
+        home: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthLoading || state is AuthInitial) {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(color: Colors.green),
+                ),
+              );
+            }
+            if (state is Authenticated) {
+              return const DashboardPage();
+            }
+            return const LoginPage();
+          },
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider(
+//       create: (_) => AuthBloc(repository: AuthRepository())
+//         ..add(AppStarted()),
+//       child: MaterialApp(
+//         title: 'Ternak App',
+//         debugShowCheckedModeBanner: false,
+//         home: const AuthWrapper(),
+//       ),
+//     );
+//   }
+// }
+
+// class AuthWrapper extends StatelessWidget {
+//   const AuthWrapper({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<AuthBloc, AuthState>(
+//       builder: (context, state) {
+//         if (state is AuthLoading || state is AuthInitial) {
+//           return const Scaffold(
+//             body: Center(
+//               child: CircularProgressIndicator(color: Colors.green),
+//             ),
+//           );
+//         }
+//         if (state is Authenticated) {
+//           return const DashboardPage();
+//         }
+//         return const LoginPage();
+//       },
+//     );
+//   }
+// }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
