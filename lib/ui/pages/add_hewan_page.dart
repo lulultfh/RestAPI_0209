@@ -8,9 +8,10 @@ class AddHewanPage extends StatefulWidget {
 }
 
 class _AddHewanPageState extends State<AddHewanPage> {
-  final _formKey  = GlobalKey<FormState>();
-  
+  final _formKey = GlobalKey<FormState>();
+
   final _namaController = TextEditingController();
+  final _jenisController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container();
