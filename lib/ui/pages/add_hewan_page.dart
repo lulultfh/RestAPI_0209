@@ -14,6 +14,7 @@ class _AddHewanPageState extends State<AddHewanPage> {
   final _jenisController = TextEditingController();
   final _tglLahirController = TextEditingController();
   final _hargaController = TextEditingController();
+  final _statusController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container();
