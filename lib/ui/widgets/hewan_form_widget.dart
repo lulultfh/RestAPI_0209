@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:restapi_flutter/data/models/hewan_models.dart';
 
 class HewanFormWidget extends StatefulWidget {
-  final HewanModel? intialData;
+  final HewanModel? initialData;
   final void Function(Map<String, dynamic> data) onSubmit;
   final bool isLoading;
 
   const HewanFormWidget({
     super.key,
-    this.intialData,
+    this.initialData,
     required this.onSubmit,
     this.isLoading = false,
   });
@@ -29,11 +29,11 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
   @override
   void initState() {
     super.initState();
-    _namaController = TextEditingController(text: widget.intialData?.nama ?? '',);
-    _jenisController = TextEditingController(text: widget.intialData?.jenis ?? '',);
-    _tglLahirController = TextEditingController(text: widget.intialData?.tanggalLahir ?? '',);
-    _hargaController = TextEditingController(text: widget.intialData?.harga.toString() ?? '',);
-    _statusController = TextEditingController(text: widget.intialData?.status ?? '',);
+    _namaController = TextEditingController(text: widget.initialData?.nama ?? '',);
+    _jenisController = TextEditingController(text: widget.initialData?.jenis ?? '',);
+    _tglLahirController = TextEditingController(text: widget.initialData?.tanggalLahir ?? '',);
+    _hargaController = TextEditingController(text: widget.initialData?.harga.toString() ?? '',);
+    _statusController = TextEditingController(text: widget.initialData?.status ?? '',);
   }
 
   @override
@@ -108,7 +108,7 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
             child: widget.isLoading
                 ? const CircularProgressIndicator()
                 : Text(
-                    widget.intialData == null ? 'Simpan Data' : 'Update Data',
+                    widget.initialData == null ? 'Simpan Data' : 'Update Data',
                   ),
           ),
         ],
