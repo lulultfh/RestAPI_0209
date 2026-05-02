@@ -160,7 +160,7 @@ class DashboardPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (innerContext) => BlocProvider.value(
                       value: bloc,
-                      child: EditHewanPage(hewan:hewan), //
+                      child: EditHewanPage(hewan: hewan), //
                     ),
                   ),
                 );
@@ -180,9 +180,39 @@ class DashboardPage extends StatelessWidget {
                 "${hewan.jenis} | ${hewan.status}",
                 style: const TextStyle(color: Colors.white70),
               ),
-              trailing: IconButton(
-                onPressed: () => _showDeleteDialog(context, hewan),
-                icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+              // trailing: IconButton(
+              //   onPressed: () => _showDeleteDialog(context, hewan),
+              //   icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+              // ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      final bloc = context.read<HewanBloc>();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (innerContext) => BlocProvider.value(
+                            value: bloc,
+                            child: EditHewanPage(hewan: hewan),
+                          ),
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.edit,
+                      color: Colors.blueAccent,
+                    ), // Icon pulpen edit
+                  ),
+                  IconButton(
+                    onPressed: () => _showDeleteDialog(context, hewan),
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
