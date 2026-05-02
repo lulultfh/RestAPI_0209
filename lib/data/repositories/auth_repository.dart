@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:restapi_flutter/data/models/user_model.dart';
-import 'dart:developer' as develepor;
+import 'dart:developer' as developer;
 
 class AuthRepository {
   final String baseUrl = "https://ternak-be-production.up.railway.app/api/v1";
@@ -32,7 +32,7 @@ class AuthRepository {
       );
 
       final data = jsonDecode(response.body);
-      develepor.log('Response Login: ${response.body}', name: 'API');
+      developer.log('Response Login: ${response.body}', name: 'API');
 
       if (response.statusCode == 200) {
         await persistToken(data['token']);
@@ -41,7 +41,7 @@ class AuthRepository {
         throw data['message'] ?? 'Gagal Login';
       }
     } catch (e) {
-      develepor.log('Error pada Login: $e', name: 'API');
+      developer.log('Error pada Login: $e', name: 'API');
       rethrow;
     }
   }
@@ -59,6 +59,9 @@ class AuthRepository {
         'password': password,
       }),
     );
+
+    developer.log('Response Register API (${response.statusCode}): ${response.body}', name: 'API');
+
     if (response.statusCode != 201 && response.statusCode != 200) {
       final data = jsonDecode(response.body);
       throw data['message'] ?? 'Gagal Register';
