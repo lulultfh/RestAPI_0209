@@ -174,12 +174,12 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.white.withOpacity(0.9),
-                          foregroundColor: const Color(0xff1a237e),
+                          backgroundColor: Colors.purple.shade700,
+                          // foregroundColor: const Color(0xff1a237e),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          elevation: 0,
+                          elevation: 5,
                         ),
                         onPressed: widget.isLoading ? null : _submitForm,
                         child: widget.isLoading
@@ -195,6 +195,7 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
                                     ? 'Simpan Data'
                                     : 'Update Data',
                                 style: TextStyle(
+                                  color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
