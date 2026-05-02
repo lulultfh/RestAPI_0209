@@ -35,7 +35,7 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
     _hargaController = TextEditingController(text: widget.intialData?.harga.toString() ?? '');
     _statusController = TextEditingController(text: widget.intialData?.status ?? '');
   }
-  
+
   @override
   void dispose() {
     _namaController.dispose();
@@ -44,6 +44,19 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
     _hargaController.dispose();
     _statusController.dispose();
     super.dispose();
+  }
+  
+  void _submitForm(){
+    if(_formKey.currentState!.validate()){
+      final data = {
+        'nama': _namaController.text,
+        'jenis': _jenisController.text,
+        'tanggal_lahir': _tglLahirController.text,
+        'harga': _hargaController.text,
+        'status': _statusController.text,
+      };
+      widget.onSubmit(data);
+    }
   }
 
   @override
