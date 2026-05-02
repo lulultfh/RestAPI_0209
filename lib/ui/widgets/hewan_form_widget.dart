@@ -27,13 +27,13 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
   late TextEditingController _statusController;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _namaController = TextEditingController(text: widget.intialData?.nama ?? '');
-    _jenisController = TextEditingController(text: widget.intialData?.jenis ?? '');
-    _tglLahirController = TextEditingController(text: widget.intialData?.tanggalLahir ?? '');
-    _hargaController = TextEditingController(text: widget.intialData?.harga.toString() ?? '');
-    _statusController = TextEditingController(text: widget.intialData?.status ?? '');
+    _namaController = TextEditingController(text: widget.intialData?.nama ?? '',);
+    _jenisController = TextEditingController(text: widget.intialData?.jenis ?? '',);
+    _tglLahirController = TextEditingController(text: widget.intialData?.tanggalLahir ?? '',);
+    _hargaController = TextEditingController(text: widget.intialData?.harga.toString() ?? '',);
+    _statusController = TextEditingController(text: widget.intialData?.status ?? '',);
   }
 
   @override
@@ -45,9 +45,9 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
     _statusController.dispose();
     super.dispose();
   }
-  
-  void _submitForm(){
-    if(_formKey.currentState!.validate()){
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
       final data = {
         'nama': _namaController.text,
         'jenis': _jenisController.text,
@@ -61,6 +61,58 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Form(
+      key: _formKey,
+      child: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          TextFormField(
+            controller: _namaController,
+            decoration: const InputDecoration(labelText: 'Nama Hewan'),
+            validator: (value) =>
+                value!.isEmpty ? 'Nama tidak boleh kosong' : null,
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            controller: _jenisController,
+            decoration: const InputDecoration(labelText: 'Jenis Hewan'),
+            validator: (value) =>
+                value!.isEmpty ? 'Jenis tidak boleh kosong' : null,
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            controller: _tglLahirController,
+            decoration: const InputDecoration(labelText: 'Tanggal Lahir'),
+            validator: (value) =>
+                value!.isEmpty ? 'Tanggal Lahir tidak boleh kosong' : null,
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            controller: _hargaController,
+            decoration: const InputDecoration(labelText: 'Harga'),
+            keyboardType: TextInputType.number,
+            validator: (value) =>
+                value!.isEmpty ? 'Harga tidak boleh kosong' : null,
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            controller: _statusController,
+            decoration: const InputDecoration(labelText: 'Status'),
+            // keyboardType: TextInputType.number,
+            validator: (value) =>
+                value!.isEmpty ? 'Status tidak boleh kosong' : null,
+          ),
+          const SizedBox(height: 32),
+          ElevatedButton(
+            onPressed: widget.isLoading ? null : _submitForm,
+            child: widget.isLoading
+                ? const CircularProgressIndicator()
+                : Text(
+                    widget.intialData == null ? 'Simpan Data' : 'Update Data',
+                  ),
+          ),
+        ],
+      ),
+    );
   }
 }
