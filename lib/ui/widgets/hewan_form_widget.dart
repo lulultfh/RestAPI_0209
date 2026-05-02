@@ -52,7 +52,7 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
         'nama': _namaController.text,
         'jenis': _jenisController.text,
         'tanggal_lahir': _tglLahirController.text,
-        'harga': _hargaController.text,
+        'harga': int.tryParse(_hargaController.text) ?? 0,
         'status': _statusController.text,
       };
       widget.onSubmit(data);
