@@ -160,7 +160,7 @@ class DashboardPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (innerContext) => BlocProvider.value(
                       value: bloc,
-                      child: EditHewanPage(), //hewan:hewan
+                      child: EditHewanPage(hewan:hewan), //
                     ),
                   ),
                 );
