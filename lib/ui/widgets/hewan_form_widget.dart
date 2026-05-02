@@ -20,11 +20,11 @@ class HewanFormWidget extends StatefulWidget {
 class _HewanFormWidgetState extends State<HewanFormWidget> {
   final _formKey = GlobalKey<FormState>();
 
-  final _namaController = TextEditingController();
-  final _jenisController = TextEditingController();
-  final _tglLahirController = TextEditingController();
-  final _hargaController = TextEditingController();
-  final _statusController = TextEditingController();
+  late TextEditingController _namaController;
+  late TextEditingController _jenisController;
+  late TextEditingController _tglLahirController;
+  late TextEditingController _hargaController;
+  late TextEditingController _statusController;
 
   @override
   void dispose() {
