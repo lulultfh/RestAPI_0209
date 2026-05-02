@@ -27,6 +27,16 @@ class _HewanFormWidgetState extends State<HewanFormWidget> {
   late TextEditingController _statusController;
 
   @override
+  void initState(){
+    super.initState();
+    _namaController = TextEditingController(text: widget.intialData?.nama ?? '');
+    _jenisController = TextEditingController(text: widget.intialData?.jenis ?? '');
+    _tglLahirController = TextEditingController(text: widget.intialData?.tanggalLahir ?? '');
+    _hargaController = TextEditingController(text: widget.intialData?.harga.toString() ?? '');
+    _statusController = TextEditingController(text: widget.intialData?.status ?? '');
+  }
+  
+  @override
   void dispose() {
     _namaController.dispose();
     _jenisController.dispose();
