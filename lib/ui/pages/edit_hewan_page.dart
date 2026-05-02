@@ -31,6 +31,7 @@ class EditHewanPage extends StatelessWidget {
         builder: (context, state){
           final isLoading = state is HewanLoading;
           return HewanFormWidget(
+            initialData: hewan,
             isLoading: isLoading,
             onSubmit: (data){
               context.read<HewanBloc>().add(UpdateHewan(hewan.id, data));
